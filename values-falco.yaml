@@ -1,0 +1,11 @@
+# Falco sur K3s : pilote eBPF moderne, sortie lisible dans les logs.
+driver:
+  kind: modern_ebpf
+tty: true
+collectors:
+  containerEngine:
+    engines:
+      cri:
+        enabled: true
+        # Socket containerd de K3s (déjà présent par défaut dans le chart 9.x)
+        sockets: ["/run/k3s/containerd/containerd.sock", "/run/containerd/containerd.sock"]

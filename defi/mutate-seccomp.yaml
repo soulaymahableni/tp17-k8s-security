@@ -1,0 +1,20 @@
+# Défi : mutation. Ajoute seccompProfile RuntimeDefault aux Pods qui n'en ont pas.
+# "+(...)" = ajouter seulement si absent (ne remplace pas une valeur existante).
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-default-seccomp
+spec:
+  rules:
+    - name: add-seccomp-runtime-default
+      match:
+        any:
+          - resources:
+              kinds: ["Pod"]
+              namespaces: ["tp17"]
+      mutate:
+        patchStrategicMerge:
+          spec:
+            securityContext:
+              +(seccompProfile):
+                type: RuntimeDefault

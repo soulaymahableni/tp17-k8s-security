@@ -1,0 +1,20 @@
+# Partie 5 : Deployment NON conforme, pour tester les policies Kyverno en Enforce
+# (tag latest, conteneur privilégié, root, pas de requests/limits)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bad-app
+  namespace: tp17
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: bad-app }
+  template:
+    metadata:
+      labels: { app: bad-app }
+    spec:
+      containers:
+        - name: bad
+          image: nginx:latest
+          securityContext:
+            privileged: true

@@ -1,0 +1,14 @@
+# Partie 3 : doit être REFUSÉ par le profil PSS "restricted"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: evil
+  namespace: tp17
+spec:
+  hostNetwork: true
+  containers:
+    - name: evil
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      securityContext:
+        privileged: true
